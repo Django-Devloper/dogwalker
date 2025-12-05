@@ -11,7 +11,7 @@ Production-ready Django 5 / DRF scaffold for a multi-tenant pet care marketplace
    ```
 3. Copy environment template and adjust secrets:
    ```bash
-   cp .env.example .env
+   cp .venv.example .venv
    ```
 4. Run migrations and create a superuser:
    ```bash
