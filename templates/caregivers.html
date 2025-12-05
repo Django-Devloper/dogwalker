@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Find a caregiver{% endblock %}
+{% block content %}
+<section class="panel">
+    <div class="panel__header">
+        <div>
+            <p class="eyebrow">Directory</p>
+            <h1>Find the right caregiver for your pet</h1>
+            <p class="muted">Filter by city, service, and rating to discover available walkers, sitters, and boarders.</p>
+        </div>
+        <div class="badge-group">
+            <span class="pill">{{ caregivers|length }} results</span>
+        </div>
+    </div>
+    <form method="get" class="filters">
+        <label>
+            City
+            <input type="text" name="city" value="{{ request.GET.city }}" placeholder="e.g., Seattle">
+        </label>
+        <label>
+            Service
+            <select name="service_type">
+                <option value="">All services</option>
+                {% for service in service_types %}
+                <option value="{{ service.code }}" {% if request.GET.service_type == service.code %}selected{% endif %}>{{ service.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>
+            Min rating
+            <select name="min_rating">
+                <option value="">Any</option>
+                {% for option in '5,4,3,2,1'.split(',') %}
+                <option value="{{ option }}" {% if request.GET.min_rating == option %}selected{% endif %}>{{ option }}★ & up</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="accepts_large_dogs" value="1" {% if request.GET.accepts_large_dogs %}checked{% endif %}>
+            Accepts large dogs
+        </label>
+        <button class="button" type="submit">Apply filters</button>
+    </form>
+    <div class="caregiver-grid caregiver-grid--list">
+        {% for caregiver in caregivers %}
+        <div class="caregiver-card">
+            <div class="caregiver-card__header">
+                <div>
+                    <h4>{{ caregiver.user.username }}</h4>
+                    <p class="muted">{{ caregiver.city }}</p>
+                </div>
+                <div class="pill pill--success">{{ caregiver.rating_average }} ★</div>
+            </div>
+            <p class="small">{{ caregiver.bio|default:'No bio provided yet.' }}</p>
+            <div class="meta">Experience: {{ caregiver.years_experience }} years · Max pets: {{ caregiver.max_pets }}</div>
+            <div class="meta">Hourly base: ${{ caregiver.hourly_rate_base }}</div>
+            <div class="service-tags">
+                {% for svc in caregiver.services.all %}
+                <span class="pill pill--ghost">{{ svc.service_type.name }} · ${{ svc.price_per_unit }}</span>
+                {% empty %}
+                <span class="muted">No active services configured.</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <p class="muted">No caregivers match these filters yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

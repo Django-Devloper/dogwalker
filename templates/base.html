@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PetWalk{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar__brand">
+            <a href="/" class="brand">PetWalk</a>
+            <span class="pill">Marketplace</span>
+        </div>
+        <nav class="navbar__links">
+            <a href="/">Home</a>
+            <a href="/caregivers/">Caregivers</a>
+            <a href="/api/docs/" target="_blank" rel="noopener">API Docs</a>
+            <a href="/admin/" target="_blank" rel="noopener">Admin</a>
+        </nav>
+    </header>
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+        <div>
+            <strong>PetWalk</strong> &middot; Built for pet owners and caregivers.
+        </div>
+        <div class="footer__links">
+            <a href="https://github.com" target="_blank" rel="noopener">Source</a>
+            <a href="/api/schema/" target="_blank" rel="noopener">OpenAPI</a>
+        </div>
+    </footer>
+</body>
+</html>
