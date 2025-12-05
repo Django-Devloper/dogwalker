@@ -1,0 +1,24 @@
+marketplace/__pycache__/
+marketplace/management/__pycache__/
+marketplace/migrations/__pycache__/
+petwalk/__pycache__/
+# IDE config
+.idea/
+
+# Virtual env
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*/__pycache__/
+**/__pycache__/
+*.py[cod]
+
+# Django stuff (optional but nice)
+*.sqlite3
+
+# Env files
+.env
+.env.*
+*.env
