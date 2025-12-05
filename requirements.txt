@@ -1,0 +1,7 @@
+django>=5.0,<6.0
+djangorestframework
+django-filter
+drf-spectacular
+dj-database-url
+python-dotenv
+psycopg2-binary
