@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}PetWalk Marketplace{% endblock %}
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">Multi-tenant pet care</p>
+        <h1>Match with trusted walkers, sitters, and boarders.</h1>
+        <p class="lede">Book on-demand walks, overnight boarding, or recurring visits with transparent pricing and verified caregivers.</p>
+        <div class="hero__cta">
+            <a class="button" href="/caregivers/">Browse caregivers</a>
+            <a class="button button--ghost" href="/api/docs/" target="_blank" rel="noopener">Explore API</a>
+        </div>
+    </div>
+    <div class="hero__panel">
+        <div class="stat"><span class="stat__number">{{ caregiver_count }}</span><span class="stat__label">Caregivers</span></div>
+        <div class="stat"><span class="stat__number">{{ service_type_count }}</span><span class="stat__label">Service types</span></div>
+        <div class="stat"><span class="stat__number">{{ active_city_count }}</span><span class="stat__label">Cities supported</span></div>
+        <div class="stat"><span class="stat__number">{{ recent_reviews_count }}</span><span class="stat__label">Completed bookings</span></div>
+    </div>
+</section>
+<section class="grid">
+    <article class="card">
+        <h3>Owner-friendly booking</h3>
+        <p>Instantly request walkers in your city, share pet notes, and track confirmations and review history.</p>
+        <ul class="list">
+            <li>Recurring or one-time bookings</li>
+            <li>Transparent platform fee and caregiver earnings</li>
+            <li>Walk tracking with routes and report cards</li>
+        </ul>
+    </article>
+    <article class="card">
+        <h3>Caregiver tools</h3>
+        <p>Configure availability, set service-specific pricing, and track payouts with finance summaries.</p>
+        <ul class="list">
+            <li>Time-off windows and recurring schedules</li>
+            <li>Service areas with geo radius and city focus</li>
+            <li>Automated commission and payout logs</li>
+        </ul>
+    </article>
+    <article class="card">
+        <h3>API-first platform</h3>
+        <p>Use the documented REST API for mobile or partner integrations. Token auth today, JWT-ready tomorrow.</p>
+        <ul class="list">
+            <li>OpenAPI via drf-spectacular</li>
+            <li>Filtering, ordering, and search for discovery</li>
+            <li>Composable serializers for each use case</li>
+        </ul>
+    </article>
+</section>
+<section class="panel">
+    <div>
+        <h2>Featured caregivers</h2>
+        <p class="lede">Top-rated providers pulled directly from the marketplace data.</p>
+    </div>
+    <div class="caregiver-grid">
+        {% for caregiver in top_caregivers %}
+        <div class="caregiver-card">
+            <div class="caregiver-card__header">
+                <div>
+                    <h4>{{ caregiver.user.username }}</h4>
+                    <p class="muted">{{ caregiver.city }}</p>
+                </div>
+                <div class="pill pill--success">{{ caregiver.rating_average }} ★</div>
+            </div>
+            <p class="small">{{ caregiver.bio|default:'No bio provided yet.' }}</p>
+            <p class="muted">Services: {{ caregiver.services_offered|join:', ' }}</p>
+        </div>
+        {% empty %}
+        <p class="muted">No caregivers yet. Seed data with <code>generate_dummy_data</code> to populate the marketplace.</p>
+        {% endfor %}
+    </div>
+</section>
+<section class="panel panel--muted">
+    <div>
+        <h2>Service catalog</h2>
+        <p class="muted">Available services configured in the marketplace.</p>
+    </div>
+    <div class="service-grid">
+        {% for service in service_types %}
+        <div class="service-card">
+            <h4>{{ service.name }}</h4>
+            <p class="muted">{{ service.description|default:'No description yet.' }}</p>
+            <div class="meta">Base duration: {{ service.base_duration_minutes }} minutes</div>
+            <div class="meta">Default price: ${{ service.default_base_price }}</div>
+        </div>
+        {% empty %}
+        <p class="muted">No services configured yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

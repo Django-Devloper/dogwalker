@@ -11,7 +11,7 @@ Production-ready Django 5 / DRF scaffold for a multi-tenant pet care marketplace
    ```
 3. Copy environment template and adjust secrets:
    ```bash
-   cp .venv.example .venv
+   cp .env.example .env
    ```
 4. Run migrations and create a superuser:
    ```bash
@@ -22,10 +22,11 @@ Production-ready Django 5 / DRF scaffold for a multi-tenant pet care marketplace
    ```bash
    python manage.py generate_dummy_data
    ```
-6. Start the server and explore the API docs at `/api/docs/`.
+6. Start the server and explore the landing page at `/` or the caregiver directory at `/caregivers/`. API docs live at `/api/docs/`.
 
 ## Highlights
 - Token-based auth with owner and caregiver registration flows.
 - Rich domain models for bookings, services, availability, walks, reviews, and payouts.
 - Commission computation via configurable `PLATFORM_FEE_PERCENT`.
 - drf-spectacular for OpenAPI schema at `/api/schema/`.
+- Django template UI with hero landing page and filterable caregiver directory.
